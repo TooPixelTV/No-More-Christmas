@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://drq6p7rh6wjmc"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_it3ct"]
+[ext_resource type="FontFile" uid="uid://caqxle8dhxwu3" path="res://assets/fonts/CHRICI__.TTF" id="1_kha61"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_it3ct")
+
+[node name="GameOverTitle" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -227.5
+offset_top = 35.855
+offset_right = 227.5
+offset_bottom = 201.855
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_kha61")
+theme_override_font_sizes/font_size = 126
+text = "Game Over"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -195.5
+offset_top = -137.335
+offset_right = 195.5
+offset_bottom = -49.335
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_kha61")
+theme_override_font_sizes/font_size = 66
+text = "Suvived Time : "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="."]
+process_mode = 3
+custom_minimum_size = Vector2(400, 70)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -38.0
+offset_right = 200.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_kha61")
+theme_override_font_sizes/font_size = 51
+text = "Restart"
+
+[connection signal="pressed" from="RestartBtn" to="." method="_on_restart_btn_pressed"]

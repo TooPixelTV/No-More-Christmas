@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwpvjnbi20ixj"]
+
+[ext_resource type="Script" path="res://scripts/story.gd" id="1_et2wo"]
+[ext_resource type="FontFile" uid="uid://caqxle8dhxwu3" path="res://assets/fonts/CHRICI__.TTF" id="2_xy26t"]
+
+[sub_resource type="Gradient" id="Gradient_pht7j"]
+offsets = PackedFloat32Array(0.493506, 1)
+colors = PackedColorArray(0, 0.382375, 5.29438e-07, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kxsi2"]
+gradient = SubResource("Gradient_pht7j")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Animation" id="Animation_gjvlj"]
+resource_name = "blink"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ClickToContinue:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.290196), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fhliw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ClickToContinue:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0uc4p"]
+_data = {
+"RESET": SubResource("Animation_fhliw"),
+"blink": SubResource("Animation_gjvlj")
+}
+
+[node name="Story" type="Node2D"]
+script = ExtResource("1_et2wo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackgoundGradiant" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_kxsi2")
+
+[node name="StoryText" type="Label" parent="CanvasLayer"]
+custom_minimum_size = Vector2(1000, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -46.0
+offset_right = 0.5
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_xy26t")
+theme_override_font_sizes/font_size = 70
+text = "TEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ClickToContinue" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.5
+offset_top = -90.275
+offset_right = 103.5
+offset_bottom = -35.275
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_xy26t")
+theme_override_font_sizes/font_size = 41
+text = "Click or space to continue"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0uc4p")
+}
+autoplay = "blink"

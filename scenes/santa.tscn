@@ -1,0 +1,142 @@
+[gd_scene load_steps=10 format=3 uid="uid://mp0j67hrcq8x"]
+
+[ext_resource type="Script" path="res://scripts/santa.gd" id="1_7txhn"]
+[ext_resource type="Texture2D" uid="uid://24fm557hp80i" path="res://assets/sprites/santa.png" id="1_uxs5j"]
+[ext_resource type="Texture2D" uid="uid://cjq3n66bdjgqc" path="res://assets/sprites/candy.png" id="2_mslh6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nr2se"]
+size = Vector2(156.105, 45)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rh6da"]
+radius = 43.0
+height = 242.0
+
+[sub_resource type="Animation" id="Animation_jq3k4"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-5, -122)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.174533, 0.174533, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_h5ycx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-5, -122)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_68fe0"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.92, 1.056), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_steof"]
+_data = {
+"RESET": SubResource("Animation_h5ycx"),
+"idle": SubResource("Animation_68fe0"),
+"walk": SubResource("Animation_jq3k4")
+}
+
+[node name="Santa" type="CharacterBody2D"]
+collision_mask = 24
+motion_mode = 1
+script = ExtResource("1_7txhn")
+
+[node name="Weapon" type="Area2D" parent="."]
+visible = false
+position = Vector2(1, -121)
+collision_layer = 2
+collision_mask = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon"]
+position = Vector2(127, -13)
+rotation = 1.5708
+scale = Vector2(0.676, 0.676)
+texture = ExtResource("2_mslh6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
+position = Vector2(129, -8)
+shape = SubResource("RectangleShape2D_nr2se")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5, -122)
+texture = ExtResource("1_uxs5j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -121)
+shape = SubResource("CapsuleShape2D_rh6da")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_steof")
+}
+speed_scale = 1.5
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+volume_db = 5.0
+
+[connection signal="body_entered" from="Weapon" to="." method="_on_weapon_body_entered"]

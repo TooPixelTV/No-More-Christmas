@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0jojv0bsbh7i"]
+
+[ext_resource type="Texture2D" uid="uid://d7u1c16yaxqs" path="res://assets/sprites/child-01.png" id="1_h1fra"]
+[ext_resource type="Script" path="res://scripts/child.gd" id="1_w0hdb"]
+[ext_resource type="Texture2D" uid="uid://dq8ec20tuggc1" path="res://assets/sprites/child-02.png" id="3_00xax"]
+[ext_resource type="Texture2D" uid="uid://d6ngfdyenexs" path="res://assets/sprites/child-03.png" id="4_f6w1n"]
+[ext_resource type="Texture2D" uid="uid://4gjucbiesr8v" path="res://assets/sprites/child-04.png" id="5_ohaa0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n8hs8"]
+radius = 41.0
+height = 242.0
+
+[sub_resource type="Animation" id="Animation_u7878"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChildSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.733333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.174533, 0.174533, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_dqykv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChildSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mpnja"]
+_data = {
+"RESET": SubResource("Animation_dqykv"),
+"walk": SubResource("Animation_u7878")
+}
+
+[node name="Child" type="CharacterBody2D"]
+scale = Vector2(0.4, 0.4)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_w0hdb")
+sprite_list = Array[Texture2D]([ExtResource("1_h1fra"), ExtResource("3_00xax"), ExtResource("4_f6w1n"), ExtResource("5_ohaa0")])
+
+[node name="ChildSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_h1fra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_n8hs8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mpnja")
+}
+autoplay = "walk"
+speed_scale = 1.5

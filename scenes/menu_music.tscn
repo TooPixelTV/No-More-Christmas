@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjhe5cx8210o5"]
+
+[ext_resource type="AudioStream" uid="uid://dd86ldiqf5xbj" path="res://assets/audios/Jazz Vol2 Thoughtful Sunday Main.wav" id="1_qm2co"]
+
+[node name="MenuMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_qm2co")
+volume_db = -10.0
+autoplay = true

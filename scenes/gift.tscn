@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://b1cub7fbtpyyo"]
+
+[ext_resource type="Script" path="res://scripts/gift.gd" id="1_01a6u"]
+[ext_resource type="Texture2D" uid="uid://0ygko810j80q" path="res://assets/sprites/gift-01.png" id="2_j17hc"]
+[ext_resource type="Texture2D" uid="uid://cg7icylmu0goc" path="res://assets/sprites/gift-02.png" id="3_40ja5"]
+[ext_resource type="Texture2D" uid="uid://deenx4pjp3uya" path="res://assets/sprites/gift-03.png" id="4_goa3a"]
+[ext_resource type="Texture2D" uid="uid://dyipll0wepcno" path="res://assets/sprites/gift-04.png" id="5_0i8rt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swgf2"]
+size = Vector2(187, 207)
+
+[sub_resource type="Curve" id="Curve_2rt66"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_oloav"]
+
+[sub_resource type="Animation" id="Animation_myi72"]
+resource_name = "spawn"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iqymu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8qrmr"]
+_data = {
+"RESET": SubResource("Animation_iqymu"),
+"spawn": SubResource("Animation_myi72")
+}
+
+[node name="Gift" type="StaticBody2D" groups=["gift"]]
+scale = Vector2(0.25, 0.25)
+collision_layer = 8
+script = ExtResource("1_01a6u")
+sprite_list = Array[Texture2D]([ExtResource("2_j17hc"), ExtResource("3_40ja5"), ExtResource("4_goa3a"), ExtResource("5_0i8rt")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_j17hc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5.5, 46.5)
+shape = SubResource("RectangleShape2D_swgf2")
+
+[node name="Explosion" type="CPUParticles2D" parent="."]
+position = Vector2(8, 48)
+emitting = false
+amount = 400
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 300.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_2rt66")
+color = Color(0.997738, 0.895084, 0.92505, 1)
+color_ramp = SubResource("Gradient_oloav")
+hue_variation_max = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8qrmr")
+}
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+volume_db = 5.0

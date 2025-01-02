@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://be8bfl4wnlkbn"
+path="res://.godot/imported/Rock Dirt Impact Dull B.wav-6794babcd9e492776bcb74e2e00264bd.sample"
+
+[deps]
+
+source_file="res://assets/audios/Rock Dirt Impact Dull B.wav"
+dest_files=["res://.godot/imported/Rock Dirt Impact Dull B.wav-6794babcd9e492776bcb74e2e00264bd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

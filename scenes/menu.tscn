@@ -1,0 +1,120 @@
+[gd_scene load_steps=9 format=3 uid="uid://cr60t0a4eb8lx"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_3lk84"]
+[ext_resource type="Texture2D" uid="uid://24fm557hp80i" path="res://assets/sprites/santa.png" id="1_belbe"]
+[ext_resource type="Texture2D" uid="uid://dq8ec20tuggc1" path="res://assets/sprites/child-02.png" id="2_cejr4"]
+[ext_resource type="Texture2D" uid="uid://deenx4pjp3uya" path="res://assets/sprites/gift-03.png" id="3_wwqpx"]
+[ext_resource type="Texture2D" uid="uid://cjq3n66bdjgqc" path="res://assets/sprites/candy.png" id="4_mmryp"]
+[ext_resource type="FontFile" uid="uid://caqxle8dhxwu3" path="res://assets/fonts/CHRICI__.TTF" id="5_1ct5d"]
+
+[sub_resource type="Gradient" id="Gradient_3se6r"]
+offsets = PackedFloat32Array(0.493506, 1)
+colors = PackedColorArray(0, 0.382375, 5.29438e-07, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_w74r0"]
+gradient = SubResource("Gradient_3se6r")
+fill_to = Vector2(0, 1)
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_3lk84")
+
+[node name="BackgoundGradiant" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_w74r0")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -17.0
+offset_top = 312.0
+offset_right = 233.0
+offset_bottom = 562.0
+rotation = -0.279253
+scale = Vector2(1.35, 1.35)
+texture = ExtResource("1_belbe")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 983.0
+offset_top = 281.0
+offset_right = 1233.0
+offset_bottom = 531.0
+rotation = 0.253073
+scale = Vector2(0.905, 0.905)
+texture = ExtResource("2_cejr4")
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+offset_left = 877.0
+offset_top = 357.0
+offset_right = 1136.0
+offset_bottom = 677.0
+scale = Vector2(0.395, 0.395)
+texture = ExtResource("3_wwqpx")
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+offset_left = -76.0
+offset_top = 380.0
+offset_right = 174.0
+offset_bottom = 630.0
+rotation = -0.279253
+scale = Vector2(0.92, 0.92)
+texture = ExtResource("4_mmryp")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -485.0
+offset_top = 47.375
+offset_right = 485.0
+offset_bottom = 252.375
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_1ct5d")
+theme_override_font_sizes/font_size = 156
+text = "No More Christmas"
+
+[node name="StartButton" type="Button" parent="."]
+custom_minimum_size = Vector2(500, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = 100.735
+offset_right = 250.0
+offset_bottom = 261.735
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_1ct5d")
+theme_override_font_sizes/font_size = 116
+text = "Play"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -93.07
+offset_right = 200.0
+offset_bottom = 61.93
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Play with twitch chat (enter twitch channel)"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TwitchChannelInput" type="TextEdit" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

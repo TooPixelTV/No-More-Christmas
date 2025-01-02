@@ -1,0 +1,167 @@
+[gd_scene load_steps=13 format=3 uid="uid://iq6offtowjqg"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_bbe7l"]
+[ext_resource type="Texture2D" uid="uid://dy0almed7yims" path="res://assets/sprites/background.png" id="1_gvgfo"]
+[ext_resource type="PackedScene" uid="uid://mp0j67hrcq8x" path="res://scenes/santa.tscn" id="2_2yiyq"]
+[ext_resource type="Script" path="res://scripts/gift_spawn_area.gd" id="4_c4oc6"]
+[ext_resource type="Script" path="res://scripts/joy_gauge.gd" id="5_gkq8l"]
+[ext_resource type="Texture2D" uid="uid://bso7lt6jmxcjs" path="res://assets/sprites/joy-icon.png" id="5_k8uyp"]
+[ext_resource type="Texture2D" uid="uid://cpy4mw40mr6e6" path="res://assets/sprites/timer.png" id="7_clt0n"]
+[ext_resource type="PackedScene" uid="uid://drq6p7rh6wjmc" path="res://scenes/game_over_screen.tscn" id="8_wvq6y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4y2m"]
+size = Vector2(280, 900)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pcl10"]
+size = Vector2(1600, 250)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixgwt"]
+size = Vector2(1310, 649)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1pov"]
+bg_color = Color(1, 0.2, 0.2, 1)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_bbe7l")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_gvgfo")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.72, 0.72)
+
+[node name="Santa" parent="." instance=ExtResource("2_2yiyq")]
+scale = Vector2(0.6, 0.6)
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+position = Vector2(-800, 0)
+shape = SubResource("RectangleShape2D_a4y2m")
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+position = Vector2(800, 0)
+shape = SubResource("RectangleShape2D_a4y2m")
+
+[node name="TopWall" type="StaticBody2D" parent="Walls"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
+position = Vector2(0, -544.155)
+shape = SubResource("RectangleShape2D_pcl10")
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+position = Vector2(0, 450)
+shape = SubResource("RectangleShape2D_pcl10")
+
+[node name="Children" type="Node" parent="."]
+
+[node name="Gifts" type="Node" parent="."]
+
+[node name="ChildStart" type="Node" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="ChildStart"]
+position = Vector2(-2, -341)
+
+[node name="Marker2D2" type="Marker2D" parent="ChildStart"]
+position = Vector2(645, -1)
+
+[node name="Marker2D3" type="Marker2D" parent="ChildStart"]
+position = Vector2(3, 310)
+
+[node name="Marker2D4" type="Marker2D" parent="ChildStart"]
+position = Vector2(-639, 4)
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="ChildSpawnTimer" type="Timer" parent="Timers"]
+wait_time = 30.0
+autostart = true
+
+[node name="GiftSpawnTimer" type="Timer" parent="Timers"]
+wait_time = 5.0
+autostart = true
+
+[node name="GameTimer" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="GiftSpawnArea" type="Area2D" parent="." groups=["spawn_area"]]
+script = ExtResource("4_c4oc6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GiftSpawnArea"]
+position = Vector2(1, -1.5)
+shape = SubResource("RectangleShape2D_ixgwt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="JoyGauge" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_gkq8l")
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/JoyGauge"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 0
+offset_left = 60.0
+offset_top = 30.0
+offset_right = 360.0
+offset_bottom = 57.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_a1pov")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/JoyGauge"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 255.0
+offset_bottom = 270.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_k8uyp")
+
+[node name="Timer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1000.0
+offset_right = 1040.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Timer"]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 250.0
+offset_bottom = 270.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_clt0n")
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/Timer"]
+custom_minimum_size = Vector2(50, 45)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 24
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverScreen" parent="." instance=ExtResource("8_wvq6y")]
+visible = false
+
+[connection signal="timeout" from="Timers/ChildSpawnTimer" to="." method="_on_child_spawn_timer_timeout"]
+[connection signal="timeout" from="Timers/GiftSpawnTimer" to="." method="_on_gift_spawn_timer_timeout"]
+[connection signal="timeout" from="Timers/GameTimer" to="." method="_on_game_timer_timeout"]
